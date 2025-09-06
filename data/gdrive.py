@@ -5,16 +5,13 @@ import googleapiclient.http
 from google.oauth2 import service_account
 from io import BytesIO
 
-# Load service account JSON from environment variable
-SERVICE_ACCOUNT_JSON = os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"]
-credentials_info = json.loads(SERVICE_ACCOUNT_JSON)
-
 SCOPES = ["https://www.googleapis.com/auth/drive.file"]
 
 def get_drive_service():
     """Authenticate and return the Google Drive service instance."""
+    service_account_info = json.loads(os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON"))
     credentials = service_account.Credentials.from_service_account_info(
-        credentials_info, scopes=SCOPES
+        service_account_info, scopes=SCOPES
     )
     return googleapiclient.discovery.build("drive", "v3", credentials=credentials)
 
