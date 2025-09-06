@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Desk</title>
+    <title>MITS Student Desk</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -15,26 +15,6 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-        }
-
-        /* Background Animation */
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(-45deg, #ffffff, #f0f0f0, #e0e0e0, #ffffff);
-            background-size: 400% 400%;
-            animation: gradientAnimation 10s ease infinite;
-            z-index: -1;
         }
 
         /* Announcement Bar */
@@ -143,7 +123,44 @@
             list-style: none;
             padding: 0;
         }
-
+        .color-change-5x {
+            -webkit-animation: color-change-5x 20s 1s infinite alternate both;
+                    animation: color-change-5x 20s 1s infinite alternate both;
+        }
+        @-webkit-keyframes color-change-5x {
+            0% {
+              background:rgb(141, 203, 207);
+            }
+            25% {
+              background:rgb(173, 137, 195);
+            }
+            50% {
+              background:rgb(236, 144, 144);
+            }
+            75% {
+              background:rgb(196, 178, 121);
+            }
+            100% {
+              background:rgb(163, 219, 146);
+            }
+          }
+          @keyframes color-change-5x {
+            0% {
+              background:rgb(141, 221, 227);
+            }
+            25% {
+              background:rgb(198, 142, 230);
+            }
+            50% {
+              background:rgb(235, 147, 147);
+            }
+            75% {
+              background:rgb(220, 202, 142);
+            }
+            100% {
+              background:rgb(161, 237, 138);
+            }
+          }
         .list-group-item {
             background-color: rgba(255, 255, 255, 0.9);
             border-radius: 5px;
@@ -240,7 +257,7 @@
         }
     </style>
 </head>
-<body>
+<body class="color-change-5x">
     <div class="announcement">
         📢 Papers are updated until <strong>March 2025</strong>!
     </div>  
@@ -256,22 +273,25 @@
                     <div>
                         <label class="form-label">Regulation</label>
                         <select name="regulation" class="form-select">
-                            <option value="" selected disabled>Choose Regulation</option>
-                            <option value="r-20" {% if selected_regulation == "r-20" %}selected{% endif %}>R-20</option>
-                            <option value="r-23" {% if selected_regulation == "r-23" %}selected{% endif %}>R-23</option>
-                        </select>
+    <option value="" selected disabled>Choose Regulation</option>
+    {% for reg in regulations %}
+        <option value="{{ reg.name }}" {% if selected_regulation == reg.name %}selected{% endif %}>
+            {{ reg.name }}
+        </option>
+    {% endfor %}
+</select>
                     </div>
 
                     <div>
                         <label class="form-label">Department</label>
                         <select name="department" class="form-select">
-                            <option value="" selected disabled>Choose Department</option>
-                            <option value="cse" {% if selected_department == "cse" %}selected{% endif %}>CSE</option>
-                            <option value="ece" {% if selected_department == "ece" %}selected{% endif %}>ECE</option>
-                            <option value="eee" {% if selected_department == "eee" %}selected{% endif %}>EEE</option>
-                            <option value="mech" {% if selected_department == "mech" %}selected{% endif %}>MECH</option>
-                            <option value="civil" {% if selected_department == "civil" %}selected{% endif %}>CIVIL</option>
-                        </select>
+    <option value="" selected disabled>Choose Department</option>
+    {% for dept in departments %}
+        <option value="{{ dept.name }}" {% if selected_department == dept.name %}selected{% endif %}>
+            {{ dept.name }}
+        </option>
+    {% endfor %}
+</select>
                     </div>
 
                     <div>
@@ -299,7 +319,7 @@
                         <select name="paper_type" class="form-select">
                             <option value="" selected disabled>Choose Paper Type</option>
                             <option value="mid" {% if selected_paper_type == "mid" %}selected{% endif %}>Mid Exam</option>
-                            <option value="semister" {% if selected_paper_type == "semister" %}selected{% endif %}>Semester Exam</option>
+                            <option value="semester" {% if selected_paper_type == "semester" %}selected{% endif %}>Semester Exam</option>
                             <option value="questionbank" {% if selected_paper_type == "questionbank" %}selected{% endif %}>Question Bank</option>
                         </select>
                     </div>
