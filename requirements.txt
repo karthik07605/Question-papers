@@ -23,7 +23,10 @@ tzdata==2025.1
 uritemplate==4.1.1
 urllib3==2.3.0
 gunicorn
+psycopg2-binary
+dj-database-url
 python-decouple==3.8
+
 
 
 
